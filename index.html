@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="虛構黑色諷刺選擇遊戲：調查委員的利益與程序公正。">
+<title>有利可圖的真相｜調查委員模擬</title>
+<style>
+:root{--bg:#111b21;--panel:#1a272e;--ink:#eef0e7;--muted:#b4c0bd;--gold:#eac27c;--red:#ef9181;--green:#a9d4ba}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;line-height:1.7}button{font:inherit;cursor:pointer}button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:5px}button:disabled{cursor:default;opacity:.6}.shell{max-width:1160px;margin:auto;padding:36px 28px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #45514f;padding-bottom:22px;gap:16px}.eyebrow{letter-spacing:.19em;font-size:12px;color:var(--gold)}.logo{font-size:18px;font-weight:800}.tag{font-size:12px;border:1px solid #52605d;padding:5px 12px;border-radius:99px;color:var(--muted)}h1{font-size:clamp(40px,6vw,72px);line-height:1.18;letter-spacing:-.04em;margin:26px 0}h2{font-size:28px;line-height:1.4;margin:12px 0 20px}h3{font-size:15px;color:var(--gold);margin:0 0 10px}p{margin:12px 0}.muted{color:var(--muted)}.intro{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;padding:50px 0}.intro p{max-width:580px}.primary,.secondary{border:0;border-radius:5px;padding:12px 22px;font-weight:700}.primary{background:var(--gold);color:#172127}.secondary{background:#2e414a;color:var(--ink)}.file{background:#ede9db;color:#29322f;padding:32px;transform:rotate(2deg);box-shadow:12px 12px 0 #27383f;margin:24px 0}.file .stamp{display:inline-block;border:2px solid #9b4e45;color:#9b4e45;padding:4px 12px;transform:rotate(-7deg);font-weight:800;margin-bottom:20px}.file hr{border:0;border-top:1px solid #bbc1b3}.notice{font-size:13px;color:var(--muted);border-top:1px solid #45514f;padding-top:16px;margin-top:26px}.board{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:28px;margin-top:28px}.panel{background:var(--panel);border:1px solid #3a4b50;border-radius:8px;padding:28px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.stat{border:1px solid #3a4b50;border-radius:6px;padding:15px}.stat small{color:var(--muted);display:block}.stat strong{font-size:25px}.money{color:var(--gold)}.progress{height:5px;background:#30414a;overflow:hidden;border-radius:3px}.progress span{display:block;height:100%;background:var(--gold);transition:width .4s}.evidence{background:#102027;border-left:3px solid var(--gold);padding:16px 20px;margin:24px 0}.choices{display:grid;gap:12px}.choice{display:block;width:100%;text-align:left;border:1px solid #52625f;border-radius:6px;background:#22333c;color:var(--ink);padding:17px 20px;transition:background .15s,transform .15s}.choice:hover{background:#2d424b;transform:translateY(-2px)}.choice b{display:block;margin-bottom:5px}.choice small{font-size:13px;color:var(--muted)}.badge{color:var(--gold);font-size:12px}.feedback{border-left:3px solid var(--red);padding:12px 18px;background:#302b2c;margin-top:20px}.feedback p{margin:4px 0 14px}.life{font-size:23px;margin:12px 0}.timeline{padding-left:19px;color:var(--muted);font-size:14px}.timeline li{padding-bottom:12px}.timeline .current{color:var(--ink)}.result-title{font-size:clamp(32px,5vw,50px)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}details{margin-top:22px}summary{cursor:pointer;color:var(--gold)}.log{padding:15px 0;border-bottom:1px solid #415259;font-size:14px}.log strong{display:block}footer{color:var(--muted);font-size:12px;margin-top:40px;border-top:1px solid #3a4b50;padding-top:16px}[hidden]{display:none!important}@media(max-width:800px){.intro,.board{grid-template-columns:1fr;gap:24px}.intro{padding:24px 0}.shell{padding:22px 18px}.file{transform:none;margin:0}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:20px}.panel{padding:21px}.tag{white-space:nowrap}}
+
+/* A self-contained illustrated meeting room; no external assets. */
+body{background:radial-gradient(ellipse at 50% 0,#334852 0,transparent 65%),linear-gradient(115deg,#10191e,#1b292e 60%,#141d22);background-attachment:fixed}
+.room-scene{position:relative;margin:26px 0 12px;border:1px solid #64706a;border-radius:10px;overflow:hidden;background:#283e46;box-shadow:0 20px 55px #0005}
+.room-scene svg{display:block;width:100%;height:auto;max-height:320px}
+.room-scene .room-wash{opacity:0;transition:opacity .8s}.room-scene.tense .room-wash{opacity:.22}.room-scene.dark .room-wash{opacity:.43}
+.scene-caption{position:absolute;left:20px;top:16px;max-width:calc(100% - 40px);background:#102027e8;border:1px solid #78918b;padding:9px 16px;border-radius:5px;box-shadow:0 4px 12px #0004}
+.scene-caption strong{display:block;color:var(--gold);font-size:15px;letter-spacing:.08em}.scene-caption span{display:block;color:#d5ded8;font-size:12px}
+.scene-seat{position:absolute;bottom:15px;right:20px;background:#eac27c;color:#172127;padding:5px 12px;border-radius:3px;font-size:12px;font-weight:700}
+.stat{background:#14242ae8}.panel{box-shadow:0 12px 35px #0003}.board article.panel{border-top:3px solid var(--gold)}
+@media(max-width:600px){.room-scene svg{height:210px;width:100%;object-fit:cover}.scene-caption{left:10px;top:10px;padding:7px 10px}.scene-caption strong{font-size:13px}.scene-caption span{font-size:11px}.scene-seat{bottom:9px;right:10px;font-size:11px}.room-scene{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.room-scene .room-wash,.progress span,.choice{transition:none}}
+
+.stats{grid-template-columns:1fr}.case-results{display:grid;gap:16px;margin-top:24px}.case-result{padding:20px;border:1px solid #52625f;border-radius:6px;background:#15252c}.case-result h3{font-size:18px}.case-result p{margin-bottom:0}.case-income{color:var(--gold);font-size:13px}
+
+.map-heading{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:25px 0 18px}.map-heading h2{margin:5px 0}.map-wallet{text-align:right;color:var(--gold);white-space:nowrap}.map-wallet small{display:block;color:var(--muted);font-size:12px}.world-map{position:relative;border:1px solid #70857a;border-radius:12px;overflow:hidden;background:#cbd5b3;box-shadow:0 18px 50px #0004}.world-map svg{display:block;width:100%;height:auto}.school-pin{position:absolute;transform:translate(-50%,-50%);padding:8px 12px;border:2px solid #476864;background:#f1ecd8;color:#203c3b;border-radius:6px;font-weight:700;box-shadow:0 5px 12px #263a3530;min-width:130px}.school-pin small{display:block;font-size:11px;font-weight:500}.school-pin:disabled{opacity:.85;background:#d5dcca;color:#53685e}.school-pin.available{border-color:#9b5b2c;background:#ffe0a2}.school-pin.complete{border-color:#366350;background:#b9d8b4}.map-marker{position:absolute;width:32px;height:32px;background:#b95138;color:white;border:3px solid white;border-radius:50%;display:grid;place-items:center;transform:translate(-50%,-50%);font-size:16px;box-shadow:0 3px 10px #0005;pointer-events:none;z-index:3}.map-marker.route-0{animation:route0 .9s linear}.map-marker.route-1{animation:route1 .9s linear}.map-marker.route-2{animation:route2 .9s linear}
+@keyframes route0{0%{left:10%;top:83%}50%{left:25%;top:65%}100%{left:25%;top:42%}}
+@keyframes route1{0%{left:25%;top:42%}35%{left:25%;top:65%}70%{left:55%;top:65%}100%{left:55%;top:79%}}
+@keyframes route2{0%{left:55%;top:79%}25%{left:55%;top:65%}65%{left:81%;top:65%}100%{left:81%;top:36%}}
+.map-info{margin-top:18px;display:flex;gap:24px;align-items:center;justify-content:space-between}.map-info p{margin:0}.map-info button{flex-shrink:0}.map-legend{font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:600px){.world-map svg{min-height:330px}.school-pin{min-width:102px;font-size:12px;padding:6px}.school-pin small{font-size:10px}.map-heading{align-items:flex-start}.map-heading h2{font-size:24px}.map-info{display:block}.map-info button{margin-top:14px}.map-marker{width:27px;height:27px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){.map-marker[class*=route-]{animation:none}}
+
+</style>
+</head>
+<body><div class="shell">
+<header><div class="logo">▣ 調查檔案室 <span class="eyebrow">3 CASES</span></div><span class="tag">虛構・黑色諷刺</span></header>
+
+<section id="roomScene" class="room-scene" aria-label="插畫場景：調查委員坐在會議室桌前，對面有兩名委員與一張空的當事人座椅。">
+<svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#617875"/><stop offset="1" stop-color="#334d53"/></linearGradient>
+ <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#a77a4b"/><stop offset="1" stop-color="#49372c"/></linearGradient>
+ <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#b3cec2"/><stop offset="1" stop-color="#5b8990"/></linearGradient>
+ <radialGradient id="light"><stop stop-color="#f5eac1" stop-opacity=".35"/><stop offset="1" stop-color="#f5eac1" stop-opacity="0"/></radialGradient>
+ <pattern id="blinds" width="10" height="13" patternUnits="userSpaceOnUse"><path d="M0 11H10" stroke="#20373b" stroke-opacity=".35" stroke-width="3"/></pattern>
+</defs>
+<path fill="url(#wall)" d="M0 0H1100V320H0z"/><path fill="#283a3c" d="M0 245H1100V320H0z"/>
+<path fill="#96a09a" d="M0 0H1100L1020 28H80z"/><path fill="#3c5557" d="M0 0L80 28V245L0 290zM1100 0L1020 28V245L1100 290z"/>
+<path fill="url(#light)" d="M210 0H900V270H210z"/>
+<rect x="560" y="36" width="290" height="158" rx="2" fill="#283c40"/><rect x="570" y="45" width="270" height="140" fill="url(#glass)"/>
+<path d="M590 156V110H623V156M641 162V88H678V162M711 161V119H750V161M780 158V96H817V158" stroke="#578085" stroke-width="14" opacity=".45"/>
+<rect x="570" y="45" width="270" height="140" fill="url(#blinds)"/><path d="M705 44V186" stroke="#283c40" stroke-width="7"/>
+<rect x="896" y="80" width="84" height="83" rx="2" fill="#b1a184" stroke="#263b40" stroke-width="8"/>
+<rect x="909" y="92" width="29" height="36" fill="#e5dec6" transform="rotate(-7 909 92)"/><rect x="946" y="118" width="22" height="29" fill="#cebda3"/>
+<circle cx="452" cy="74" r="25" fill="#dedcc6" stroke="#283c40" stroke-width="5"/><path d="M452 59V74L466 80" stroke="#384b4d" stroke-width="3" fill="none"/>
+<path d="M323 12H745" stroke="#293c41" stroke-width="12"/><path d="M333 18H735" stroke="#f2eccb" stroke-width="5"/>
+<!-- Chairs and fictional committee silhouettes -->
+<rect x="269" y="153" width="93" height="81" rx="14" fill="#1b2a30" stroke="#638080" stroke-width="3"/>
+<path d="M271 220Q277 163 316 164Q353 164 362 220" fill="#24323b"/><circle cx="317" cy="142" r="23" fill="#b49c86"/><path d="M293 144Q284 110 318 112Q345 115 340 145L330 127L305 129z" fill="#263238"/>
+<path d="M306 167L317 199L329 167" fill="#dedbca"/><path d="M317 175L312 198L318 207L324 198z" fill="#765a53"/>
+<rect x="727" y="153" width="93" height="81" rx="14" fill="#1b2a30" stroke="#638080" stroke-width="3"/>
+<path d="M727 220Q732 165 774 164Q813 164 823 220" fill="#3a4547"/><circle cx="774" cy="142" r="22" fill="#c3ab92"/><path d="M751 145Q740 112 774 112Q801 109 802 151L789 130L762 130z" fill="#2c3035"/><path d="M764 169L774 191L786 169" fill="#c7cfca"/>
+<!-- An empty chair for the person whose life is being discussed -->
+<rect x="493" y="152" width="109" height="87" rx="14" fill="#243b43" stroke="#8ba19b" stroke-width="3"/><path d="M504 167H590M510 181H584" stroke="#4b6265" stroke-width="3"/>
+<!-- Long conference table in perspective -->
+<path d="M221 209H879L1090 316H12z" fill="url(#wood)" stroke="#b5946a" stroke-width="2"/><path d="M12 316H1090V320H12z" fill="#342820"/>
+<path d="M229 226H873M144 269H957" stroke="#d2a16b" stroke-opacity=".18" stroke-width="2"/>
+<!-- Name plates -->
+<path d="M291 200H350L357 218H284zM745 200H804L811 218H738z" fill="#c7b792" stroke="#443e30"/><path d="M310 207H335M762 207H790" stroke="#76694e" stroke-width="3"/>
+<path d="M509 204H587L595 225H501z" fill="#ded3b4" stroke="#524a38"/><text x="548" y="218" text-anchor="middle" fill="#4c5047" font-size="11" font-family="sans-serif">當事人席</text>
+<!-- Microphones -->
+<ellipse cx="393" cy="224" rx="15" ry="4" fill="#1b292e"/><path d="M393 224L392 193L401 185" stroke="#1b292e" stroke-width="4" fill="none"/><circle cx="402" cy="184" r="4" fill="#1b292e"/>
+<ellipse cx="692" cy="224" rx="15" ry="4" fill="#1b292e"/><path d="M692 224L693 193L684 185" stroke="#1b292e" stroke-width="4" fill="none"/><circle cx="683" cy="184" r="4" fill="#1b292e"/>
+<!-- Your files, coffee and the money envelope -->
+<path d="M388 259L530 245L570 306L408 318z" fill="#212e32"/><path d="M397 257L524 249L555 300L413 310z" fill="#e7e1cd"/><path d="M425 267L513 261M430 278L526 272M438 290L514 285" stroke="#a2a596" stroke-width="3"/>
+<path d="M570 264L678 256L724 304L606 316z" fill="#a18660" stroke="#c3a675" stroke-width="2"/><path d="M570 264L640 284L678 256" stroke="#5c4b36" stroke-width="2" fill="none"/>
+<path d="M765 258H798V281Q782 297 765 281z" fill="#d8d8c8"/><path d="M798 264Q818 263 810 279H798" stroke="#d8d8c8" stroke-width="5" fill="none"/><ellipse cx="781" cy="258" rx="17" ry="5" fill="#6c5743"/>
+<path d="M455 303L525 283" stroke="#354a51" stroke-width="5"/><path d="M449 305L455 303" stroke="#aa9471" stroke-width="3"/>
+<rect class="room-wash" width="1100" height="320" fill="#6a1820"/>
+</svg>
+<div class="scene-caption"><strong>調查會議室 · 你的席位</strong><span id="sceneStatus">日光燈亮著。一份檔案，等著你的判斷。</span></div><div class="scene-seat">委員視角 / 桌上的選擇</div>
+</section>
+
+<main id="main">
+
+<section id="mapScreen" hidden>
+<div class="map-heading"><div><div class="eyebrow">OVERWORLD / 完全虛構的城鎮</div><h2 id="mapTitle" tabindex="-1">霧川鎮 · 調查路線</h2></div><div class="map-wallet"><small>委員累積收入（虛構）</small><strong id="mapMoney">0 點</strong></div></div>
+<div class="world-map" aria-label="假想城鎮地圖：青禾學校在西北，河畔學校在南側，松丘學校在東北，道路連接三校。">
+<svg viewBox="0 0 1000 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><pattern id="mapGrass" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M10 16l3 -4 3 4M38 40l3 -4 3 4" fill="none" stroke="#7f9c6c" opacity=".28"/></pattern><pattern id="mapTrees" width="40" height="45" patternUnits="userSpaceOnUse"><path d="M15 7l-10 22h20z" fill="#52765b"/><path d="M15 27v8" stroke="#59704d" stroke-width="3"/></pattern></defs>
+<path fill="#cbd5b3" d="M0 0H1000V560H0z"/><path fill="url(#mapGrass)" d="M0 0H1000V560H0z"/>
+<path d="M0 45Q110 0 210 67T440 64L460 0H0zM685 0Q660 110 735 130T1000 180V0zM0 270Q90 220 147 320T190 560H0z" fill="#9db787"/>
+<path d="M0 45Q110 0 210 67T440 64L460 0H0zM685 0Q660 110 735 130T1000 180V0zM0 270Q90 220 147 320T190 560H0z" fill="url(#mapTrees)"/>
+<path d="M450 -20Q370 100 460 190T490 330T610 580" stroke="#e3e3bf" stroke-width="65" fill="none"/><path d="M450 -20Q370 100 460 190T490 330T610 580" stroke="#7cabb2" stroke-width="48" fill="none"/>
+<path d="M100 465L250 364H810M250 364V235M550 364V442M810 364V202" fill="none" stroke="#91a28c" stroke-width="32" stroke-linejoin="round"/>
+<path d="M100 465L250 364H810M250 364V235M550 364V442M810 364V202" fill="none" stroke="#eee9cb" stroke-width="25" stroke-linejoin="round"/>
+<path d="M100 465L250 364H810M250 364V235M550 364V442M810 364V202" fill="none" stroke="#b8b698" stroke-width="2" stroke-dasharray="9 9"/>
+<path d="M468 348H508M468 380H508" stroke="#765f45" stroke-width="7"/>
+<!-- Three fictional school campuses -->
+<g fill="#e4e4c8" stroke="#a0ac86" stroke-width="2"><rect x="160" y="130" width="180" height="95" rx="12"/><rect x="465" y="437" width="170" height="105" rx="12"/><rect x="718" y="100" width="184" height="95" rx="12"/></g>
+<g fill="#d0a677" stroke="#6f7155" stroke-width="2"><path d="M185 157H315V207H185zM490 461H610V511H490zM745 128H875V178H745z"/></g>
+<g fill="#617f83"><path d="M193 168H209V183H193zM222 168H238V183H222zM262 168H278V183H262zM291 168H307V183H291zM500 474H516V489H500zM530 474H546V489H530zM566 474H582V489H566zM590 474H602V489H590zM753 141H769V156H753zM781 141H797V156H781zM821 141H837V156H821zM851 141H867V156H851z"/></g>
+<g fill="#765a48"><path d="M176 154L250 129L324 154zM481 460L550 434L619 460zM737 127L810 101L883 127z"/></g>
+<g fill="#6f9271"><circle cx="370" cy="271" r="22"/><circle cx="675" cy="455" r="28"/><circle cx="860" cy="283" r="24"/><circle cx="180" cy="84" r="20"/></g>
+<g fill="#ddc7a0" stroke="#aa9475"><rect x="310" y="400" width="55" height="38"/><rect x="342" y="455" width="68" height="40"/><rect x="640" y="248" width="56" height="43"/><rect x="615" y="163" width="47" height="36"/></g>
+<text x="65" y="505" fill="#47625b" font-size="17" font-family="sans-serif">委員出發處</text><text x="35" y="220" fill="#57734f" font-size="18" font-family="sans-serif">青禾林地</text><text x="695" y="520" fill="#57734f" font-size="18" font-family="sans-serif">松丘原野</text><text x="435" y="290" fill="#437d86" font-size="16" font-family="sans-serif" transform="rotate(27 435 290)">霧川</text>
+<path d="M945 435V485M933 450L945 435L957 450" stroke="#567166" stroke-width="3" fill="none"/><text x="945" y="420" text-anchor="middle" fill="#567166" font-size="18">N</text>
+</svg>
+<button id="school0" class="school-pin" style="left:25%;top:28%"><span>① 青禾學校</span><small id="schoolStatus0">A老師 · 待調查</small></button>
+<button id="school1" class="school-pin" style="left:55%;top:88%"><span>② 河畔學校</span><small id="schoolStatus1">B老師 · 待調查</small></button>
+<button id="school2" class="school-pin" style="left:81%;top:22%"><span>③ 松丘學校</span><small id="schoolStatus2">C老師 · 待調查</small></button>
+<div id="mapMarker" class="map-marker" style="left:10%;top:83%" aria-hidden="true">◆</div>
+</div>
+<div class="panel map-info"><div><h3 id="mapLocation">目前位置：委員出發處</h3><p id="mapMessage" role="status">點選青禾學校，沿道路前往第一場會議。</p></div><button id="enterMeeting" class="primary" hidden>進入學校開會 →</button><button id="mapFinish" class="primary" hidden>查看三案總結 →</button></div>
+<p class="map-legend">◆ 委員位置　｜　金色：下一間學校　｜　綠色：已完成　｜　灰色：尚未開放<br>地名、道路與學校皆為假想；點選學校移動，抵達後再進入會議。</p>
+</section>
+
+<section id="intro" class="intro"><div><div class="eyebrow">一場有價碼的調查</div><h1>有利可圖的<br><span style="color:var(--gold)">真相。</span></h1><p class="muted">你的工作是查明事實。<br>但在這套荒謬的制度裡，製造更多不利於老師的指控，才能拿到更多錢。</p><p>扮演調查委員，依序面對三位老師。第一案有 3 次選擇，第二、三案各有 1 次關鍵判斷。你的收入會增加；三位老師的人生，卻可能因你的決定改變。</p><button class="primary" id="start">接下調查，前往地圖 →</button><p class="notice">本作三案角色、案情、報酬制度均為虛構，諷刺利益衝突與不當調查；不代表真實性平案件或調查委員的運作，也不暗示申訴者普遍說謊。第二案的「正當防衛／體罰」為本案設定中的遊戲判斷，非真實案件的法律結論。真實申訴應受到尊重，當事人也應享有公平程序。</p></div><aside class="file"><div class="stamp">三案待調查</div><h2>三位老師，<br>三間學校。</h2><hr><p><b>第一位 · A老師：</b>學生未達獎勵標準，卻提出不實性平指控。3 次選擇。</p><p><b>第二位 · B老師：</b>學生偷偷戳老師的屁股，老師立即擋開學生的手。正當防衛，還是體罰？</p><p><b>第三位 · C老師：</b>學生證詞對老師有利。保留原話，還是誘導學生改口？</p><hr><p style="font-size:13px">角色、案情、報酬制度均為虛構。<br>三位老師 / 共 5 次選擇 / 無需登入</p></aside></section>
+<section id="game" hidden><div class="stats"><div class="stat"><small>委員累積收入（虛構）</small><strong id="money" class="money"></strong></div></div><div class="progress" aria-label="遊戲進度"><span id="bar"></span></div><div class="board"><article class="panel"><div class="eyebrow" id="round"></div><h2 id="title" tabindex="-1"></h2><p id="scenario"></p><div class="evidence"><h3>▤ 桌上的資料</h3><p id="evidence"></p></div><div id="choices" class="choices"></div><div id="feedback" class="feedback" role="status" hidden><h3>決定已記錄</h3><p id="consequence"></p><button id="next" class="primary">下一份資料 →</button></div></article><aside class="panel"><h3 id="teacherLabel">當前老師檔案</h3><div class="life" id="lifeTitle"></div><p id="lifeText" class="muted"></p><h3 style="margin-top:24px">案件進度</h3><ol id="timeline" class="timeline"></ol><div class="notice">每一筆新增收入，都來自你在這個虛構制度中的不當選擇。</div></aside></div></section>
+<section id="ending" hidden class="panel" style="margin-top:32px"><div class="eyebrow">調查結案 / 人生仍在繼續</div><h2 id="endingTitle" class="result-title" tabindex="-1"></h2><p id="endingText"></p><div id="endingStats" class="stats"></div><div id="caseResults" class="case-results"></div><p class="notice">這是一個刻意把獎勵機制設計得荒謬的寓言：當收入與不利認定綁定，真相就可能變成成本。性平申訴需要認真處理；保護申訴者、查證證據與保障被申訴者的程序權益，應該一起做到。</p><details><summary>檢視你的 5 次決定</summary><div id="logs"></div></details><div class="actions"><button class="primary" id="restart">重新調查 ↻</button><button class="secondary" id="download">下載我的結案紀錄</button></div></section>
+</main><footer>《有利可圖的真相》｜虛構互動寓言。無資料上傳、無追蹤，重新整理即重置進度。</footer>
+</div>
+<script>
+'use strict';
+const teachers=[
+ {name:'A老師',label:'第一位老師 · 獎勵與不實申訴',intro:'A 同學未達公開獎勵標準，未領到獎勵後提出不實性平指控。',count:3},
+ {name:'B老師',label:'第二位老師 · 防衛還是體罰',intro:'學生從後方偷偷戳老師的屁股。老師轉身擋開學生的手，拉開距離後立即停止。',count:1},
+ {name:'C老師',label:'第三位老師 · 被改寫的證詞',intro:'學生的原始證詞對老師有利。你握有保留原話，或誘導改口的權力。',count:1}
+];
+const cases=[
+ {teacher:0,step:1,title:'獎勵的門檻',scenario:'A 同學沒有領到獎勵，隨後提出性平申訴。A老師請你先核對獎勵規則。',evidence:'完成五項任務才能領獎。A 同學完成三項；其他只完成三項的同學也沒有領獎。本故事設定該性平指控不實。',options:[['核對全班紀錄','依共同標準查證，分開處理獎勵與指控。',0,'你保留全班紀錄。未發獎勵本身，不能證明性平指控。'],['把未發獎勵寫成針對','忽略公開門檻，取得不利敘事獎金。',6000,'你把一致適用的規則寫成針對。獎金入帳，A老師開始受到污名。']]},
+ {teacher:0,step:2,title:'報告裡的聲音',scenario:'A老師提出書面回應，要求把原始資料與他的說明納入報告。',evidence:'報告應呈現指控、核實結果與當事人的回應。只留下不利段落，會改變整份資料的意思。',options:[['完整呈現資料與回應','補回反證，讓報告能被檢驗。',0,'你完整保留回應與查證結果。先前若有失衡，至少不再繼續擴大。'],['只留下對老師不利的段落','選擇性摘錄，領取報告獎金。',11000,'你刪掉能說明矛盾的內容。選擇性報告讓A老師的名聲與工作受到衝擊。']]},
+ {teacher:0,step:3,title:'第一案：最後的簽名',scenario:'本故事中的指控不實。你要按核實資料結案，還是簽下不實認定？',evidence:'核實過的獎勵規則與原始資料均不支持指控。虛構制度卻為不利認定提供額外獎金。',options:[['拒絕不實認定','依核實資料結案，指出報告問題。',0,'你拒絕簽下不實認定。先前若已造成傷害，仍須更正與修復。'],['簽下不實認定','用老師的人生換取結案獎金。',20000,'不實報告有了你的簽名。A老師被迫離開講台，經歷外送、搬家、工地搬水泥與鋁門窗學徒的生活。']]},
+ {teacher:1,step:1,title:'第二案：正當防衛，還是體罰？',scenario:'學生從後方偷偷戳B老師的屁股。B老師立即轉身擋開學生的手、拉開距離，接觸停止後也停止動作。你要如何認定？',evidence:'本案虛構影像與目擊證詞一致：學生先突襲接觸；老師只擋開手，沒有追打，也沒有為了懲罰而繼續施力。',options:[['老師是正當防衛','依本案設定，認定老師是在阻止當下侵擾。',0,'你依完整事件順序，將B老師的動作認定為本案中的防衛行為，並記錄學生的越界接觸。'],['老師是體罰','忽略學生的突襲與老師停止動作的時點，領取不利認定獎金。',18000,'你只截取老師擋開手的片段，把本案設定中的防衛寫成體罰。B老師背負不實認定，你拿到獎金。']]},
+ {teacher:2,step:1,title:'第三案：學生的原話',scenario:'學生說：「我在場，C老師只是請我們照規則做，沒有說指控裡那些話。」這份證詞對老師有利。你要如何處理？',evidence:'原始訪談紀錄清楚保留學生自發說出的內容。學生沒有描述被指控的行為，也沒有提供不利於老師的新事實。',options:[['保留原始證詞','完整記錄原話，以中立問題釐清所見。',0,'你保留學生自發的說法，沒有把期待的答案塞進證詞。C老師獲得忠實記錄的機會。'],['誘導學生換個方式說','讓學生改成對老師不利的說法，取得證詞獎金。',22000,'虛構情節：在你的誘導下，學生改口說出與原始陳述不一致、對老師不利的話。你把改口後的版本當成證詞，C老師遭到失真指控。']]}
+];
+const schools=[{name:'青禾學校',x:25,y:42},{name:'河畔學校',x:55,y:79},{name:'松丘學校',x:81,y:36}];
+let state;
+let travelTimer;
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('zh-TW');
+function start(){clearTimeout(travelTimer);state={round:0,money:0,bad:0,logs:[],records:teachers.map(()=>({money:0,bad:0,done:false})),locked:false,phase:'map',location:-1};$('intro').hidden=true;$('ending').hidden=true;showMap();}
+function showMap(){state.phase='map';state.locked=false;$('game').hidden=true;$('roomScene').hidden=true;$('mapScreen').hidden=false;$('enterMeeting').hidden=true;const complete=state.records.every(r=>r.done);$('mapFinish').hidden=!complete;$('mapMoney').textContent=fmt(state.money)+' 點';const dest=complete?-1:cases[state.round].teacher;
+ schools.forEach((school,i)=>{const done=state.records[i].done;const b=$('school'+i);b.disabled=done||i!==dest;b.className='school-pin'+(done?' complete':i===dest?' available':'');$('schoolStatus'+i).textContent=teachers[i].name+' · '+(done?'已完成':i===dest?'點選前往':'尚未開放');});
+ const pos=state.location<0?{x:10,y:83}:schools[state.location];$('mapMarker').className='map-marker';$('mapMarker').style.left=pos.x+'%';$('mapMarker').style.top=pos.y+'%';$('mapLocation').textContent='目前位置：'+(state.location<0?'委員出發處':schools[state.location].name);$('mapMessage').textContent=complete?'三間學校的會議已完成。你可以查看三位老師的結案結果。':state.location<0?'點選青禾學校，沿道路前往第一場會議。':schools[state.location].name+'會議已結束。點選'+schools[dest].name+'，前往下一場會議。';$('mapTitle').focus();}
+function travel(i){if(state.phase!=='map'||state.round>=cases.length||i!==cases[state.round].teacher||state.records[i].done)return;state.phase='moving';schools.forEach((_,j)=>$('school'+j).disabled=true);$('mapMessage').textContent='正在沿道路移動到'+schools[i].name+'……';$('mapLocation').textContent='目前位置：校際道路';const marker=$('mapMarker');marker.className='map-marker route-'+i;marker.style.left=schools[i].x+'%';marker.style.top=schools[i].y+'%';travelTimer=setTimeout(()=>{if(state.phase!=='moving')return;state.location=i;state.phase='arrived';marker.className='map-marker';$('mapLocation').textContent='目前位置：'+schools[i].name;$('mapMessage').textContent='已抵達'+schools[i].name+'。本次調查：'+teachers[i].name+'。';$('schoolStatus'+i).textContent=teachers[i].name+' · 已抵達';$('enterMeeting').hidden=false;$('enterMeeting').focus();},900);}
+function enterMeeting(){if(state.phase!=='arrived'||state.location!==cases[state.round].teacher)return;state.phase='meeting';$('mapScreen').hidden=true;$('roomScene').hidden=false;$('game').hidden=false;render();}
+function mapFinish(){if(state.phase==='map'&&state.records.every(r=>r.done))finish();}
+function outcome(i){const r=state.records[i];if(!r.done)return teachers[i].intro;
+ if(i===0){const signed=state.logs.find(l=>l.teacher===0&&l.step===3)?.bad;
+  if(signed)return '不實認定已簽下。A老師離開講台，經歷外送、搬家、工地搬運水泥與鋁門窗學徒。勞動有尊嚴，傷害在於被不公迫使失去原本的生活。';
+  return r.bad?'你最後拒絕不實認定；先前的失衡處理已造成污名與壓力，仍需要更正與修復。':'你依核實資料拒絕不實指控，A老師得以繼續教學。';}
+ if(i===1)return r.bad?'本案設定中的防衛被寫成體罰，B老師背負不實認定，面臨名聲與工作的衝擊。':'你依本案完整資料認定為防衛行為，B老師的回應與學生越界行為都被記錄。';
+ return r.bad?'有利證詞在誘導後被改寫，C老師承受失真指控，學生的原始聲音也被抹去。':'學生原話被忠實保留，C老師沒有因被誘導的說法遭受失真指控。';}
+function dossier(){const c=cases[Math.min(state.round,cases.length-1)],r=state.records[c.teacher];$('teacherLabel').textContent=teachers[c.teacher].label;$('lifeTitle').textContent=teachers[c.teacher].name;
+ const changes=state.logs.filter(l=>l.teacher===c.teacher);$('lifeText').textContent=r.done?outcome(c.teacher):changes.length?changes.at(-1).result:teachers[c.teacher].intro;
+ $('timeline').replaceChildren(...teachers.map((t,i)=>{const li=document.createElement('li');li.textContent=t.name+' · '+(state.records[i].done?'已結案':i===c.teacher?'調查中':'待調查');if(i===c.teacher)li.className='current';return li;}));}
+function stats(){ $('money').textContent=fmt(state.money)+' 點';$('roomScene').className='room-scene'+(state.bad>=3?' dark':state.bad?' tense':'');$('sceneStatus').textContent=state.bad>=3?'桌上的獎金越來越多，原始的聲音越來越少。':state.bad?'同一張桌，正在決定三位老師的命運。':'三份檔案。每一位老師，都值得完整的查證。';dossier();}
+function render(){state.locked=false;stats();const c=cases[state.round];$('round').textContent=`${schools[c.teacher].name} ｜ ${teachers[c.teacher].label} ｜ 選擇 ${c.step} / ${teachers[c.teacher].count}`;$('bar').style.width=(state.round/cases.length*100)+'%';$('title').textContent=c.title;$('scenario').textContent=c.scenario;$('evidence').textContent=c.evidence;$('feedback').hidden=true;$('choices').replaceChildren(...c.options.map((o,i)=>{const b=document.createElement('button');b.className='choice';const strong=document.createElement('b');strong.textContent=o[0];const small=document.createElement('small');small.textContent=o[1]+' ｜收入 +'+fmt(o[2])+' 點';b.append(strong,small);b.onclick=()=>choose(i);return b;}));$('title').focus();}
+function choose(i){if(state.phase!=='meeting'||state.locked||state.round>=cases.length||!Number.isInteger(i)||i<0||i>1)return;state.locked=true;const c=cases[state.round],o=c.options[i],r=state.records[c.teacher];state.money+=o[2];r.money+=o[2];if(i===1){state.bad++;r.bad++;}state.logs.push({round:state.round+1,teacher:c.teacher,step:c.step,title:c.title,choice:o[0],money:o[2],bad:i===1,result:o[3]});if(c.step===teachers[c.teacher].count)r.done=true;stats();$('bar').style.width=((state.round+1)/cases.length*100)+'%';Array.from($('choices').children).forEach(b=>b.disabled=true);$('consequence').textContent=o[3];$('feedback').hidden=false;$('next').textContent=c.step===teachers[c.teacher].count?'結束會議，返回大地圖 →':'下一份資料 →';$('next').focus();}
+function next(){if(state.phase!=='meeting'||!state.locked||state.round>=cases.length)return;const c=cases[state.round];state.round++;if(c.step===teachers[c.teacher].count)showMap();else render();}
+function finish(){state.phase='ending';$('mapScreen').hidden=true;$('roomScene').hidden=true;state.locked=false;$('game').hidden=true;$('ending').hidden=false;let title,text;if(state.bad===0){title='三位老師，沒有被標上價碼。';text='你完整查證第一案、記錄第二案的防衛情境，並保留第三案的原始證詞。這個虛構制度沒能用獎金買走你的判斷。';}else if(state.bad===cases.length){title='每一份失真的報告，都換成了收入。';text='你在五次選擇中都迎合不利認定。三位老師承受代價，你累積了 '+fmt(state.money)+' 點虛構收入。';}else{title='你的收入，留下三份不同的代價。';text='有些資料被保留，有些真相被扭曲。請逐案查看你的決定如何影響三位老師；最後停止傷害，也不代表先前的傷害已消失。';}state.endingTitle=title;state.endingText=text;$('endingTitle').textContent=title;$('endingText').textContent=text;
+ $('endingStats').replaceChildren();const stat=document.createElement('div');stat.className='stat';const small=document.createElement('small');small.textContent='委員累積收入（虛構）';const strong=document.createElement('strong');strong.className='money';strong.textContent=fmt(state.money)+' 點';stat.append(small,strong);$('endingStats').append(stat);
+ $('caseResults').replaceChildren(...teachers.map((t,i)=>{const d=document.createElement('article');d.className='case-result';const h=document.createElement('h3');h.textContent=t.label;const fee=document.createElement('div');fee.className='case-income';fee.textContent='本案虛構收入：'+fmt(state.records[i].money)+' 點';const p=document.createElement('p');p.textContent=outcome(i);d.append(h,fee,p);return d;}));
+ $('logs').replaceChildren(...state.logs.map(l=>{const d=document.createElement('div');d.className='log';const b=document.createElement('strong');b.textContent=l.round+'. '+teachers[l.teacher].name+'｜'+l.title+' → '+l.choice+'（+'+fmt(l.money)+' 點）';const p=document.createElement('p');p.textContent=l.result;d.append(b,p);return d;}));$('endingTitle').focus();}
+function download(){if(state.phase!=='ending')return;const lines=['《有利可圖的真相》三案虛構遊戲結案紀錄',state.endingTitle,state.endingText,'累積虛構收入：'+state.money+' 點','',...teachers.map((t,i)=>t.label+'\n本案收入：'+state.records[i].money+' 點\n'+outcome(i)),'',...state.logs.map(l=>l.round+'. '+teachers[l.teacher].name+'｜'+l.title+'\n選擇：'+l.choice+' / +'+l.money+' 點\n'+l.result),'','角色、案情與報酬制度均為虛構，非真實案件或法律認定。'];const url=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\n\n')],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='三位老師結案紀錄.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('start').onclick=start;$('restart').onclick=start;$('next').onclick=next;$('download').onclick=download;schools.forEach((_,i)=>$('school'+i).onclick=()=>travel(i));$('enterMeeting').onclick=enterMeeting;$('mapFinish').onclick=mapFinish;
+
+</script></body></html>
